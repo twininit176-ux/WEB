@@ -1,0 +1,1818 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TWINZZY-X-TWEAKER - Ultimate Gaming Optimization</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="https://i.postimg.cc/hPJHY9rX/GTweak.png" type="image/png">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --accent: #3b82f6;
+            --accent-light: #60a5fa;
+            --dark: #0f172a;
+            --darker: #020617;
+            --card-bg: rgba(15, 23, 42, 0.7);
+            --glass: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --transition: all 0.3s ease;
+            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+            --text-light: #e2e8f0;
+            --text-gray: #94a3b8;
+            --neon-blue: #00f3ff;
+            --neon-purple: #d400ff;
+            --neon-pink: #ff00c8;
+            --neon-green: #00ff9d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+            background-attachment: fixed;
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(circle at 10% 20%, rgba(37, 99, 235, 0.15) 0%, transparent 20%), radial-gradient(circle at 90% 80%, rgba(59, 130, 246, 0.15) 0%, transparent 20%), radial-gradient(circle at 50% 50%, rgba(212, 0, 255, 0.08) 0%, transparent 40%);
+            z-index: -1;
+        }
+
+        /* Particles animation */
+
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        /* Scroll progress */
+
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
+            width: 0%;
+            z-index: 1001;
+            transition: width 0.3s ease;
+        }
+
+        /* Navigation */
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1.2rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+            border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        .navbar.scrolled {
+            padding: 0.8rem 5%;
+            background-color: rgba(2, 6, 23, 0.98);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+        }
+
+        .logo img {
+            height: 40px;
+            width: auto;
+            transition: var(--transition);
+        }
+
+        .logo:hover img {
+            transform: rotate(15deg);
+            filter: drop-shadow(0 0 8px var(--accent));
+        }
+
+        .logo span {
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.05rem;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-light);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .download-btn {
+            background: var(--primary);
+            color: white;
+            padding: 0.7rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            border: 2px solid var(--primary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .download-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .download-btn:hover {
+            background: transparent;
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+
+        .download-btn:hover::before {
+            left: 100%;
+        }
+
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        /* Hero Section */
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 0 5%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 650px;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 3.8rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, var(--text-light) 0%, var(--accent-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: -1px;
+            text-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: var(--text-gray);
+            max-width: 600px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .cta-primary {
+            background: var(--primary);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.1rem;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+            border: none;
+        }
+
+        .cta-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transform: translateX(-100%);
+            transition: 0.5s;
+        }
+
+        .cta-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-5px);
+        }
+
+        .cta-primary:hover::before {
+            transform: translateX(100%);
+        }
+
+        .cta-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.1rem;
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(5px);
+        }
+
+        .cta-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+
+        .hero-image {
+            position: absolute;
+            right: 5%;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 45%;
+            max-width: 700px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 1;
+            opacity: 0.95;
+            perspective: 1000px;
+        }
+
+        .hero-image .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+        }
+
+        .hero-image:hover .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .hero-image .card-front,
+        .hero-image .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        .hero-image .card-back {
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
+            transform: rotateY(180deg);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            text-align: center;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+
+        .hero-image .card-back h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--accent-light);
+        }
+
+        .hero-image .card-back p {
+            color: var(--text-gray);
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Features Section */
+
+        .section {
+            padding: 6rem 5%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: -0.5px;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        .section-title p {
+            color: var(--text-gray);
+            max-width: 600px;
+            margin: 1.5rem auto 0;
+            font-size: 1.1rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 2.5rem;
+            text-align: center;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--accent);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.5s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow);
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(59, 130, 246, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            color: var(--accent);
+            font-size: 2rem;
+            border: 2px solid rgba(59, 130, 246, 0.3);
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card p {
+            color: var(--text-gray);
+        }
+
+        /* Performance Section */
+
+        .performance-section {
+            background: rgba(15, 23, 42, 0.6);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .performance-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .performance-info {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .performance-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .improvements-list {
+            list-style: none;
+            margin-top: 1.5rem;
+        }
+
+        .improvements-list li {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .improvements-list li:last-child {
+            border-bottom: none;
+        }
+
+        .improvements-list i {
+            color: var(--accent);
+            font-size: 1.2rem;
+        }
+
+        .performance-image {
+            flex: 1;
+            min-width: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            perspective: 1000px;
+        }
+
+        .performance-image .flip-card {
+            width: 100%;
+            height: 350px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 1s;
+        }
+
+        .performance-image:hover .flip-card {
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-front,
+        .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .flip-card-front {
+            background: linear-gradient(45deg, var(--darker), var(--dark));
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            text-align: center;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+
+        .flip-card-back {
+            background: var(--dark);
+            transform: rotateY(180deg);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+
+        .flip-card-back h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent-light);
+        }
+
+        .flip-card-back ul {
+            list-style: none;
+            padding: 0;
+            width: 100%;
+        }
+
+        .flip-card-back li {
+            margin: 1rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            justify-content: space-between;
+        }
+
+        .flip-card-back i {
+            color: var(--accent);
+        }
+
+        .progress-bar {
+            width: 60%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
+            border-radius: 4px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            transition: width 1s ease-in-out;
+        }
+
+        /* Download Section */
+
+        .download-container {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            border-radius: 16px;
+            padding: 4rem;
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .download-container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 70%);
+            z-index: 1;
+        }
+
+        .download-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .download-container h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .download-container p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0.9;
+        }
+
+        .download-steps {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 3rem 0;
+            flex-wrap: wrap;
+        }
+
+        .step {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 1.5rem;
+            min-width: 200px;
+            text-align: center;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: var(--transition);
+        }
+
+        .step:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .step-number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: white;
+            color: var(--primary);
+            border-radius: 50%;
+            font-weight: 700;
+            font-size: 1.5rem;
+            margin: 0 auto 1rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Promotion Section */
+
+        .promotion {
+            background: linear-gradient(rgba(2, 6, 23, 0.9), rgba(2, 6, 23, 0.9)), url('https://i.postimg.cc/g09dsMbX/1111111.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            padding: 6rem 5%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .promotion-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .promotion-cards {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .promo-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 2.5rem;
+            width: 350px;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transform-style: preserve-3d;
+            transform: perspective(1000px);
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .promo-card:hover {
+            transform: perspective(1000px) rotateY(10deg) rotateX(10deg) translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .promo-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
+            z-index: -1;
+            border-radius: 18px;
+            animation: borderAnimation 3s linear infinite;
+        }
+
+        .promo-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .promo-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, var(--neon-blue), var(--neon-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .promo-card p {
+            color: var(--text-gray);
+            margin-bottom: 1.5rem;
+        }
+
+        .promo-stats {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            margin-top: 1.5rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--neon-blue), var(--neon-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-gray);
+        }
+
+        /* 3D Cube Animation */
+
+        .cube-container {
+            width: 200px;
+            height: 200px;
+            margin: 3rem auto;
+            perspective: 800px;
+        }
+
+        .cube {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: rotateCube 15s infinite linear;
+        }
+
+        .cube-face {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: rgba(37, 99, 235, 0.1);
+            border: 2px solid rgba(59, 130, 246, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--text-light);
+            backdrop-filter: blur(5px);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
+        }
+
+        .cube-face img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .cube-face:nth-child(1) {
+            transform: translateZ(100px);
+        }
+
+        .cube-face:nth-child(2) {
+            transform: rotateY(180deg) translateZ(100px);
+        }
+
+        .cube-face:nth-child(3) {
+            transform: rotateY(90deg) translateZ(100px);
+        }
+
+        .cube-face:nth-child(4) {
+            transform: rotateY(-90deg) translateZ(100px);
+        }
+
+        .cube-face:nth-child(5) {
+            transform: rotateX(90deg) translateZ(100px);
+        }
+
+        .cube-face:nth-child(6) {
+            transform: rotateX(-90deg) translateZ(100px);
+        }
+
+        /* Footer */
+
+        footer {
+            background: var(--darker);
+            padding: 4rem 5% 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto 3rem;
+        }
+
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            display: inline-block;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+        }
+
+        .footer-about p {
+            color: var(--text-gray);
+            margin-bottom: 1.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--card-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            text-decoration: none;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .social-links a:hover {
+            background: var(--accent);
+            transform: translateY(-3px);
+            border-color: var(--accent);
+        }
+
+        .footer-links h4 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-links h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--accent);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: var(--text-gray);
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-light);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+
+        /* Back to top button */
+
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: var(--transition);
+            z-index: 999;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .back-to-top:hover {
+            background: var(--accent);
+            transform: translateY(-5px);
+        }
+
+        /* Animations */
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.appear {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .delay-1 {
+            transition-delay: 0.2s;
+        }
+
+        .delay-2 {
+            transition-delay: 0.4s;
+        }
+
+        .delay-3 {
+            transition-delay: 0.6s;
+        }
+
+        @keyframes float {
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+
+        .floating {
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes rotateCube {
+            0% {
+                transform: rotateX(0) rotateY(0) rotateZ(0);
+            }
+            100% {
+                transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg);
+            }
+        }
+
+        @keyframes borderAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* Responsive Design */
+
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+            .hero-image {
+                width: 50%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem 5%;
+            }
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                background: var(--dark);
+                flex-direction: column;
+                width: 280px;
+                height: 100vh;
+                padding: 6rem 2rem 2rem;
+                transition: var(--transition);
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
+                z-index: 1000;
+            }
+            .nav-links.active {
+                right: 0;
+            }
+            .mobile-toggle {
+                display: block;
+            }
+            .hero {
+                flex-direction: column;
+                justify-content: center;
+                text-align: center;
+                padding-top: 5rem;
+            }
+            .hero-content {
+                margin-top: 2rem;
+            }
+            .cta-buttons {
+                justify-content: center;
+            }
+            .hero-image {
+                position: relative;
+                top: auto;
+                right: auto;
+                transform: none;
+                width: 100%;
+                max-width: 500px;
+                margin: 2rem auto 0;
+            }
+            .performance-content {
+                flex-direction: column;
+                gap: 2rem;
+            }
+            .download-container {
+                padding: 3rem 2rem;
+            }
+            .promotion-cards {
+                flex-direction: column;
+                align-items: center;
+            }
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            .cta-buttons {
+                flex-direction: column;
+            }
+            .feature-card {
+                padding: 2rem;
+            }
+            .section {
+                padding: 4rem 5%;
+            }
+            .promo-card {
+                width: 100%;
+                min-height: 350px;
+            }
+            .section-title h2 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+    <link rel="me" href="https://www.blogger.com/profile/17307183258985158792" />
+    <meta name='google-adsense-platform-account' content='ca-host-pub-1556223355139109' />
+    <meta name='google-adsense-platform-domain' content='blogspot.com' />
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6902540232526723&host=ca-host-pub-1556223355139109" crossorigin="anonymous"></script>
+
+    <!-- data-ad-client=ca-pub-6902540232526723 -->
+    <!-- -->
+    <style type="text/css">
+        @import url(//www.blogger.com/static/v1/v-css/navbar/3334278262-classic.css);
+        div.b-mobile {
+            display: none;
+        }
+    </style>
+
+</head>
+
+<body>
+    <script type="text/javascript">
+        function setAttributeOnload(object, attribute, val) {
+            if (window.addEventListener) {
+                window.addEventListener('load',
+                    function() {
+                        object[attribute] = val;
+                    }, false);
+            } else {
+                window.attachEvent('onload', function() {
+                    object[attribute] = val;
+                });
+            }
+        }
+    </script>
+    <!-- Scroll progress indicator -->
+    <div class="scroll-progress"></div>
+
+    <!-- Particles Background -->
+    <div id="particles-js"></div>
+
+    <!-- Back to top button -->
+    <div class="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <a href="#" class="logo">
+            <img src="https://i.postimg.cc/hPJHY9rX/GTweak.png" alt="TWINZZY-X-TWEAKSLogo">
+            <span>TWINZZY-X-TWEAKER</span>
+        </a>
+
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#performance">Performance</a></li>
+            <li><a href="#download">Download</a></li>
+            <li><a href="#promotion">Promotion</a></li>
+        </ul>
+
+        <a href="#download" class="download-btn">PURCHASE NOW</a>
+
+        <button class="mobile-toggle">
+            <i class="fas fa-bars"></i>
+        </button>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Unlock Ultimate Gaming Performance</h1>
+            <p>TWINZZY-X-TWEAKER optimizes your Windows system for peak gaming performance. Eliminate input delay, boost FPS, and enjoy buttery-smooth gameplay with our advanced tweaks.</p>
+            <div class="cta-buttons">
+                <a href="#download" class="cta-primary">
+                    <i class="fas fa-download"></i> PURCHASE NOW
+                </a>
+                <a href="#features" class="cta-secondary">
+                    <i class="fas fa-play-circle"></i> Watch Demo
+                </a>
+            </div>
+        </div>
+        <div class="hero-image floating">
+            <div class="card-inner">
+                <div class="card-front">
+                    <img src="https://i.postimg.cc/g09dsMbX/1111111.jpg" alt="Gaming Performance">
+                </div>
+                <div class="card-back">
+                    <h3>Game-Changing Performance</h3>
+                    <p>Experience up to 60% reduction in input lag and 40% FPS increase with TWINZZY-X-TWEAKER's optimized settings.</p>
+                    <a href="#download" class="cta-primary" style="margin-top: 1rem;">
+                        <i class="fas fa-bolt"></i> Boost Your PC
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section" id="features">
+        <div class="section-title fade-in">
+            <h2>Powerful Features</h2>
+            <p>Optimize your Windows system for the ultimate gaming experience</p>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card fade-in">
+                <div class="feature-icon">
+                    <i class="fas fa-tachometer-alt"></i>
+                </div>
+                <h3>Input Lag Elimination</h3>
+                <p>Dramatically reduce input delay for instant response in competitive gaming.</p>
+            </div>
+
+            <div class="feature-card fade-in delay-1">
+                <div class="feature-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <h3>FPS Boost</h3>
+                <p>Increase frame rates by optimizing system resources and GPU performance.</p>
+            </div>
+
+            <div class="feature-card fade-in delay-2">
+                <div class="feature-icon">
+                    <i class="fas fa-wrench"></i>
+                </div>
+                <h3>One-Click Optimization</h3>
+                <p>Apply all recommended settings with a single click for maximum performance.</p>
+            </div>
+
+            <div class="feature-card fade-in delay-3">
+                <div class="feature-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3>Safe & Reversible</h3>
+                <p>All changes are safe and can be reverted with our built-in restore function.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Performance Section -->
+    <section class="section performance-section" id="performance">
+        <div class="section-title fade-in">
+            <h2>Performance Improvements</h2>
+            <p>See what TWINZZY-X-TWEAKER can do for your gaming experience</p>
+        </div>
+
+        <div class="performance-content">
+            <div class="performance-info fade-in">
+                <h3>Experience Gaming Without Compromise</h3>
+                <p>TWINZZY-X-TWEAKER fine-tunes your Windows system settings to prioritize gaming performance over background tasks.</p>
+
+                <ul class="improvements-list">
+                    <li>
+                        <i class="fas fa-check-circle"></i>
+                        <span>Up to 60% reduction in input latency</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-check-circle"></i>
+                        <span>30-40% average FPS increase in demanding titles</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-check-circle"></i>
+                        <span>Stutter-free gameplay with consistent frame pacing</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-check-circle"></i>
+                        <span>Reduced system latency for competitive advantage</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-check-circle"></i>
+                        <span>Optimized network settings for online gaming</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="performance-image fade-in">
+                <div class="flip-card">
+                    <div class="flip-card-front">
+                        <i class="fas fa-chart-line" style="font-size: 4rem; color: var(--accent); margin-bottom: 1.5rem;"></i>
+                        <h3>Performance Metrics</h3>
+                        <p>Hover to see before/after comparison</p>
+                    </div>
+                    <div class="flip-card-back">
+                        <h3>Performance Gains</h3>
+                        <ul>
+                            <li>
+                                <i class="fas fa-arrow-up"></i>
+                                <span>Avg FPS</span>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 90%"></div>
+                                </div>
+                                <span>+42%</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-arrow-down"></i>
+                                <span>Input Lag</span>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 58%"></div>
+                                </div>
+                                <span>-58%</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-arrow-down"></i>
+                                <span>Frame Time</span>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 65%"></div>
+                                </div>
+                                <span>-65%</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-arrow-down"></i>
+                                <span>System Latency</span>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 47%"></div>
+                                </div>
+                                <span>-47%</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Promotion Section -->
+    <section class="promotion" id="promotion">
+        <div class="section-title fade-in">
+            <h2>Special Performance Promotion</h2>
+            <p>Limited time offer to boost your gaming experience</p>
+        </div>
+
+        <div class="promotion-content">
+            <div class="cube-container fade-in">
+                <div class="cube">
+                    <div class="cube-face">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <div class="cube-face">
+                        <i class="fas fa-tachometer-alt"></i>
+                    </div>
+                    <div class="cube-face">
+                        <i class="fas fa-gamepad"></i>
+                    </div>
+                    <div class="cube-face">
+                        <i class="fas fa-microchip"></i>
+                    </div>
+                    <div class="cube-face">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <div class="cube-face">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="promotion-cards">
+                <div class="promo-card fade-in">
+                    <div class="promo-icon">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                    <h3>Elite Performance</h3>
+                    <p>Unlock the full potential of your gaming rig with our premium optimization package.</p>
+                    <div class="promo-stats">
+                        <div class="stat-item">
+                            <div class="stat-value">60%</div>
+                            <div class="stat-label">Input Lag ↓</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">40%</div>
+                            <div class="stat-label">FPS ↑</div>
+                        </div>
+                    </div>
+                    <a href="#download" class="cta-primary" style="margin-top: 1.5rem;">
+                        <i class="fas fa-download"></i> Get Elite
+                    </a>
+                </div>
+
+                <div class="promo-card fade-in delay-1">
+                    <div class="promo-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Turbo Boost</h3>
+                    <p>Experience instant performance gains with our optimized gaming profiles.</p>
+                    <div class="promo-stats">
+                        <div class="stat-item">
+                            <div class="stat-value">50%</div>
+                            <div class="stat-label">Stutter ↓</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">35%</div>
+                            <div class="stat-label">Load Time ↓</div>
+                        </div>
+                    </div>
+                    <a href="#download" class="cta-primary" style="margin-top: 1.5rem;">
+                        <i class="fas fa-download"></i> Get Turbo
+                    </a>
+                </div>
+
+                <div class="promo-card fade-in delay-2">
+                    <div class="promo-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Pro Bundle</h3>
+                    <p>Complete optimization suite with advanced tweaks and priority support.</p>
+                    <div class="promo-stats">
+                        <div class="stat-item">
+                            <div class="stat-value">70%</div>
+                            <div class="stat-label">Latency ↓</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">45%</div>
+                            <div class="stat-label">FPS ↑</div>
+                        </div>
+                    </div>
+                    <a href="#download" class="cta-primary" style="margin-top: 1.5rem;">
+                        <i class="fas fa-download"></i> Get Pro
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Download Section -->
+    <section class="section" id="download">
+        <div class="section-title fade-in">
+            <h2>Download TWINZZY-X-TWEAKER</h2>
+            <p>Get started with optimizing your gaming experience today</p>
+        </div>
+
+        <div class="download-container fade-in">
+            <div class="download-content">
+                <h2>Boost Your Gaming Performance</h2>
+                <p>Join thousands of gamers who have transformed their gaming experience with TWINZYY-X-XTWEAKER. Free to download with premium optimization features.</p>
+
+                <a href="https://just2earn.com/optregxadyo" class="cta-primary" style="font-size: 1.2rem; padding: 1.2rem 3rem; display: inline-block; margin: 1.5rem 0;" target="_blank">
+                    <i class="fas fa-download"></i> PURCHASE NOW
+                </a>
+
+                <div class="download-steps">
+                    <div class="step fade-in">
+                        <div class="step-number">1</div>
+                        <h3>Download</h3>
+                        <p>Get the installer</p>
+                    </div>
+                    <div class="step fade-in delay-1">
+                        <div class="step-number">2</div>
+                        <h3>Install</h3>
+                        <p>Run the setup wizard</p>
+                    </div>
+                    <div class="step fade-in delay-2">
+                        <div class="step-number">3</div>
+                        <h3>Optimize</h3>
+                        <p>Apply recommended tweaks</p>
+                    </div>
+                    <div class="step fade-in delay-3">
+                        <div class="step-number">4</div>
+                        <h3>Game</h3>
+                        <p>Enjoy smooth gameplay</p>
+                    </div>
+                </div>
+
+                <p style="margin-top: 1.5rem; font-size: 0.9rem;">v3.0 | 18.2 MB | Supports Windows 10/11</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-about">
+                <a href="#" class="footer-logo">TWINZZY-X-TWEAKER</a>
+                <p>Windows optimization software designed for gamers who demand peak performance and minimal input delay.</p>
+                <div class="social-links">
+                    <!-- YouTube REG Utility -->
+                    <a href="https://youtube.com/@twinpowergaming-g5x?si=mVYxXHT6XV85XmRV" target="_blank" title="YouTube TWINZZY-X-TWEAKER">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+
+                    <!-- YouTube X-ADYO -->
+                    <a href="https://youtube.com/@twinpowergaming-g5x?si=mVYxXHT6XV85XmRV" target="_blank" title="YouTube TWINZZY">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+
+                    <!-- Discord REG Utility -->
+                    <a href="https://discord.gg/J9pm2RxD" target="_blank" title="Discord TWINZZY-X-TWEAKER">
+                        <i class="fab fa-discord"></i>
+                    </a>
+
+                    <!-- Discord X-ADYO INT. -->
+                    <a href="https://discord.gg/J9pm2RxD" target="_blank" title="Discord TWINZZY TWEAKS INT.">
+                        <i class="fab fa-discord"></i>
+                    </a>
+
+                    <!-- GitHub -->
+                    <a href="https://github.com/twininit176-ux" target="_blank" title="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="footer-links">
+                <h4>Products</h4>
+                <ul>
+                    <li><a href="#download"><i class="fas fa-chevron-right"></i> TWINZZY-X-TWEAKER</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Advanced Tweaks</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Network Optimizer</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Documentation</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Optimization Guides</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> FAQ</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Support</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> About Us</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Privacy Policy</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy;2025 TWINZZY. All rights reserved. Windows is a trademark of Microsoft Corporation.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // Mobile menu toggle
+        const mobileToggle = document.querySelector('.mobile-toggle');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            const icon = mobileToggle.querySelector('i');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+
+                    // Close mobile menu if open
+                    navLinks.classList.remove('active');
+                    const icon = mobileToggle.querySelector('i');
+                    icon.classList.add('fa-bars');
+                    icon.classList.remove('fa-times');
+                }
+            });
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Fade-in animation on scroll
+        const fadeElements = document.querySelectorAll('.fade-in');
+
+        const fadeInObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('appear');
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        fadeElements.forEach(element => {
+            fadeInObserver.observe(element);
+        });
+
+        // Initialize particles.js
+        particlesJS('particles-js', {
+            particles: {
+                number: {
+                    value: 120,
+                    density: {
+                        enable: true,
+                        value_area: 1000
+                    }
+                },
+                color: {
+                    value: "#3b82f6"
+                },
+                shape: {
+                    type: "circle"
+                },
+                opacity: {
+                    value: 0.5,
+                    random: true
+                },
+                size: {
+                    value: 3,
+                    random: true
+                },
+                move: {
+                    enable: true,
+                    speed: 2,
+                    direction: "none",
+                    random: true,
+                    straight: false,
+                    out_mode: "out",
+                    bounce: false
+                },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: "#e01212",
+                    opacity: 0.2,
+                    width: 1
+                }
+            },
+            interactivity: {
+                detect_on: "canvas",
+                events: {
+                    onhover: {
+                        enable: true,
+                        mode: "repulse"
+                    },
+                    onclick: {
+                        enable: true,
+                        mode: "push"
+                    },
+                    resize: true
+                }
+            }
+        });
+
+        // Add floating animation to cards
+        const cards = document.querySelectorAll('.feature-card, .promo-card');
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.classList.add('floating');
+            });
+            card.addEventListener('mouseleave', () => {
+                card.classList.remove('floating');
+            });
+        });
+
+        // 3D card tilt effect
+        const promoCards = document.querySelectorAll('.promo-card');
+        promoCards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+
+                const rotateY = (x - centerX) / 25;
+                const rotateX = (centerY - y) / 25;
+
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-10px)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
+            });
+        });
+
+        // Scroll progress indicator
+        const scrollProgress = document.querySelector('.scroll-progress');
+        window.addEventListener('scroll', () => {
+            const scrollTop = document.documentElement.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight;
+            const clientHeight = document.documentElement.clientHeight;
+            const progress = (scrollTop / (scrollHeight - clientHeight)) * 100;
+            scrollProgress.style.width = `${progress}%`;
+        });
+
+        // Back to top button
+        const backToTop = document.querySelector('.back-to-top');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 500) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Performance flip card animation on scroll
+        const flipCard = document.querySelector('.flip-card');
+        const flipCardObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        flipCard.style.transform = 'rotateY(180deg)';
+                    }, 500);
+                } else {
+                    flipCard.style.transform = 'rotateY(0)';
+                }
+            });
+        }, {
+            threshold: 0.5
+        });
+
+        if (flipCard) {
+            flipCardObserver.observe(document.querySelector('.performance-image'));
+        }
+    </script>
+</body>
+
+</html>
